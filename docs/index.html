@@ -194,10 +194,8 @@
             <label>「(h)」は目標まで何時間周回するかを表しています。</label>
         </p>
         <div id="contact">
-            <label style="color: red;">質問・相談は作成者twitterまでご連絡ください。</label><br>
-            <a title="@ishikoro1994をフォロー" href="https://twitter.com/ishikoro1994?ref_src=twsrc%5Etfw" data-lang="ja" class="twitter-follow-button" data-show-count="true">
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </a>
+            <label style="color: red;">質問・相談は作成者Xまでご連絡ください。</label><br>
+            <a title="@ishikoro1994をフォロー" href="https://x.com/ishikoro1994" target="_blank" rel="noopener noreferrer" data-lang="ja" class="twitter-follow-button" data-show-count="true">@ishikoro1994</a>
         </div>
         <div class="cookie-consent">
             <div class="cookie-text">
@@ -247,14 +245,18 @@
                 const expire = 31;
     
                 // 1. Yes Cookie-Set-Function => 引数は有効期限(日)
-                function SetCookie(expire){
-                    const current = new Date();
-                    expire = current.getTime() + expire * 24 * 3600 * 1000;
-    
-                    // CookieにDataをSetする
-                    document.cookie = `robotama-cookie=robotama-read; expire=${expire}`;
+                function SetCookie(days){
+                    document.cookie = `robotama-cookie=robotama-read; max-age=${days * 24 * 3600}; path=/; SameSite=Lax`;
                 }
-    
+
+                function loadTwitterWidget() {
+                    if (window.twttr) return;
+                    var s = document.createElement('script');
+                    s.src = 'https://platform.twitter.com/widgets.js';
+                    s.async = true;
+                    document.body.appendChild(s);
+                }
+
                 // 2. Cookieを拒否したときに、Cookieをすべて削除するFunction
                 function DeleteAllCookie(){
                     const maxAgeZero = 'max-age=0';
@@ -272,7 +274,7 @@
                 }
     
                 if (cookieSetFlag) {
-                    console.log('cookieSetFlagが立っている！Cookie同意済みUser');
+                    loadTwitterWidget();
                 } else {
                     if (rejectFlag) {
                         console.log('rejectFlagが立っている！Cookie-拒否User');
@@ -281,13 +283,14 @@
                         PopupDisplay();
                     }
                 }
-    
+
                 // Cookie同意ボタンにイベントを追加する
                 cookieAgree.addEventListener('click', ()=> {
                     cookieConsent.classList.add('cc-hide2');
                     SetCookie(expire);
+                    loadTwitterWidget();
                 });
-                
+
                 // Cookie拒否ボタンにイベントを追加する
             cookieReject.addEventListener('click', ()=> {
                 cookieConsent.classList.add('cc-hide2');

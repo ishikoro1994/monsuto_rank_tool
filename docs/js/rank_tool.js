@@ -439,6 +439,7 @@ function loadZeLeCsv() {
  * 周回数再表示
  */
 function makeLapCount() {
+    lapTypeCount = 0;
     $('#lap_count_tbody').empty();
     rapInfoArray = [];
 
@@ -732,6 +733,8 @@ function setTweetButton(){
     text += '【目標日】' + $('#target_year').val() + '年' + $('#target_month').val() + '月' + $('#target_day').val() + '日' + '\n';
     text += '目標までに必要な経験値は ' + $('#need_exp').text() + '\n';
     text += '毎日 ' + $('#days_exp').text() + ' 獲得すれば達成可能！';
+
+    if (!window.twttr) { return; }
 
     // ボタン生成
     $('#share').show();
