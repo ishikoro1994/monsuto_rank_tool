@@ -5,7 +5,7 @@ var maxRank = 0;
 var lastExp = 0;
 var lastExpDiff = 0;
 var lapTypeCount = 0;
-var explist = [40000, 20000, 15000, 10000];
+var explist = [60000];
 var baseExp = 0;
 var lapInfoList = [];
 var unkyokubonusList =
@@ -39,13 +39,10 @@ $(document).ready(function() {
     $('#unkyoku_bonus').val(unkyokubonusList[unkyokubonusList.length - 1].mag);
 
     // 1時間当たりの周回数
-    $('#hour_lap').val(60);
+    $('#hour_lap').val(80);
 
     // 難易度プルダウン設定
-    $('#difficulty').append($('<option>').html("危地").val(0));
-    $('#difficulty').append($('<option>').html("魔境").val(1));
-    $('#difficulty').append($('<option>').html("険所").val(2));
-    $('#difficulty').append($('<option>').html("魔殿").val(3));
+    $('#difficulty').append($('<option>').html("要塞").val(0));
     setInitVal('difficulty');
 
     async(function() {
@@ -665,6 +662,7 @@ function calcLapCount() {
         var lapOneDayH = Math.ceil(lapOneDay * 10 / hourLap) / 10;
         lapOneDayH = lapOneDayH.toFixed(1);
         lapOneDayH = addFigure(lapOneDayH);
+        $('#lap_one_day_h' + i).text(lapOneDayH);
     }
 }
 
